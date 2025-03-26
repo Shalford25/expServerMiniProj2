@@ -3,7 +3,7 @@ import pool from "./PoolConnection.js";
 
 const roleRouter = express.Router();
 
-roleRouter.get("/allroles", async (req, res) => {
+roleRouter.get("/", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM roles");
     res.json({ rows: result.rows });

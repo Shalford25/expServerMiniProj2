@@ -4,7 +4,7 @@ import pool from "./PoolConnection.js";
 const productRouter = express.Router();
 
 // Retrieve all products
-productRouter.get("/allroles", async (req, res) => {
+productRouter.get("/", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM products");
     res.json({ rows: result.rows });

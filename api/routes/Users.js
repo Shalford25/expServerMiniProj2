@@ -4,7 +4,7 @@ import pool from "./PoolConnection.js";
 const userRouter = express.Router();
 
 // Retrieve all users
-userRouter.get("/allroles", async (req, res) => {
+userRouter.get("/", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM users");
     res.json({ rows: result.rows });
