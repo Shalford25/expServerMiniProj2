@@ -43,7 +43,7 @@ productRouter.post("/", async (req, res) => {
 });
 
 // Update a specific product by product_id
-productRouter.put("/updaterecord:product_id", async (req, res) => {
+productRouter.put("/updaterecord/:product_id", async (req, res) => {
   const { product_id } = req.params;
   const { product_name, price, stock_quantity } = req.body;
 
@@ -60,7 +60,7 @@ productRouter.put("/updaterecord:product_id", async (req, res) => {
 });
 
 // Delete a specific product by product_id
-productRouter.delete("/deleterecord:product_id", async (req, res) => {
+productRouter.delete("/deleterecord/:product_id", async (req, res) => {
   const { product_id } = req.params;
 
   try {
