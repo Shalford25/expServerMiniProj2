@@ -49,7 +49,7 @@ productRouter.put("/updaterecord:id", async (req, res) => {
 
   try {
     const result = await pool.query(
-      "UPDATE products SET product_name = $1, price = $2, stock_quality = $3 WHERE id = $4 RETURNING *",
+      "UPDATE products SET product_name = $1, price = $2, stock_quality = $3 WHERE product_id = $4 RETURNING *",
       [product_name, price, stock_quality, id]
     );
     res.json(result.rows[0]);
@@ -64,7 +64,7 @@ productRouter.delete("/deleterecord:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    await pool.query("DELETE FROM products WHERE id = $1", [id]);
+    await pool.query("DELETE FROM products WHERE product_id = $1", [id]);
     res.json({ message: "Product deleted successfully" });
   } catch (error) {
     console.error("Error deleting product:", error);
