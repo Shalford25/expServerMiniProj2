@@ -14,11 +14,11 @@ productRouter.get("/", async (req, res) => {
   }
 });
 
-// Retrieve a specific product by ID
-productRouter.get("/retrieverecord:id", async (req, res) => {
+// Retrieve a specific product by product_id
+productRouter.get("/retrieverecord:product_id", async (req, res) => {
   try {
-    const { id } = req.params;
-    const result = await pool.query("SELECT * FROM products WHERE id = $1", [id]);
+    const { product_id } = req.params;
+    const result = await pool.query("SELECT * FROM products WHERE product_id = $1", [product_id]);
     res.json({ rows: result.rows });
   } catch (error) {
     console.error("Query error:", error);
@@ -42,15 +42,15 @@ productRouter.post("/", async (req, res) => {
   }
 });
 
-// Update a specific product by ID
-productRouter.put("/updaterecord:id", async (req, res) => {
-  const { id } = req.params;
+// Update a specific product by product_id
+productRouter.put("/updaterecord:product_id", async (req, res) => {
+  const { product_id } = req.params;
   const { product_name, price, stock_quality } = req.body;
 
   try {
     const result = await pool.query(
       "UPDATE products SET product_name = $1, price = $2, stock_quality = $3 WHERE product_id = $4 RETURNING *",
-      [product_name, price, stock_quality, id]
+      [product_name, price, stock_quality, product_id]
     );
     res.json(result.rows[0]);
   } catch (error) {
@@ -59,12 +59,12 @@ productRouter.put("/updaterecord:id", async (req, res) => {
   }
 });
 
-// Delete a specific product by ID
-productRouter.delete("/deleterecord:id", async (req, res) => {
-  const { id } = req.params;
+// Delete a specific product by product_id
+productRouter.delete("/deleterecord:product_id", async (req, res) => {
+  const { product_id } = req.params;
 
   try {
-    await pool.query("DELETE FROM products WHERE product_id = $1", [id]);
+    await pool.query("DELETE FROM products WHERE product_id = $1", [product_id]);
     res.json({ message: "Product deleted successfully" });
   } catch (error) {
     console.error("Error deleting product:", error);
