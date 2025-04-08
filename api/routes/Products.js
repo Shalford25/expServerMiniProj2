@@ -28,12 +28,12 @@ productRouter.get("/retrieverecord:product_id", async (req, res) => {
 
 // Add a new product
 productRouter.post("/", async (req, res) => {
-  const { product_name, price, stock_quality } = req.body;
+  const { product_name, price, stock_quantity } = req.body;
 
   try {
     const result = await pool.query(
-      "INSERT INTO products (product_name, price, stock_quality) VALUES ($1, $2, $3) RETURNING *",
-      [product_name, price, stock_quality]
+      "INSERT INTO products (product_name, price, stock_quantity) VALUES ($1, $2, $3) RETURNING *",
+      [product_name, price, stock_quantity]
     );
     res.status(201).json(result.rows[0]);
   } catch (error) {
@@ -45,12 +45,12 @@ productRouter.post("/", async (req, res) => {
 // Update a specific product by product_id
 productRouter.put("/updaterecord:product_id", async (req, res) => {
   const { product_id } = req.params;
-  const { product_name, price, stock_quality } = req.body;
+  const { product_name, price, stock_quantity } = req.body;
 
   try {
     const result = await pool.query(
-      "UPDATE products SET product_name = $1, price = $2, stock_quality = $3 WHERE product_id = $4 RETURNING *",
-      [product_name, price, stock_quality, product_id]
+      "UPDATE products SET product_name = $1, price = $2, stock_quantity = $3 WHERE product_id = $4 RETURNING *",
+      [product_name, price, stock_quantity, product_id]
     );
     res.json(result.rows[0]);
   } catch (error) {
