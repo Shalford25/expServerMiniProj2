@@ -3,7 +3,6 @@ import pool from "./PoolConnection.js";
 
 const productRouter = express.Router();
 
-// Retrieve all products
 productRouter.get("/", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM products");
@@ -14,7 +13,6 @@ productRouter.get("/", async (req, res) => {
   }
 });
 
-// Retrieve a specific product by product_id
 productRouter.get("/retrieverecord:product_id", async (req, res) => {
   try {
     const { product_id } = req.params;
@@ -26,15 +24,11 @@ productRouter.get("/retrieverecord:product_id", async (req, res) => {
   }
 });
 
-// Add a new product
 productRouter.post("/", async (req, res) => {
   const { product_name, price, stock_quantity } = req.body;
 
   try {
-    const result = await pool.query(
-      "INSERT INTO products (product_name, price, stock_quantity) VALUES ($1, $2, $3) RETURNING *",
-      [product_name, price, stock_quantity]
-    );
+    const result = await pool.query("INSERT INTO products (product_name, price, stock_quantity) VALUES ($1, $2, $3) RETURNING *",[product_name, price, stock_quantity]);
     res.status(201).json(result.rows[0]);
   } catch (error) {
     console.error("Error adding product:", error);
@@ -42,15 +36,12 @@ productRouter.post("/", async (req, res) => {
   }
 });
 
-// Update a specific product by product_id
 productRouter.put("/updaterecord/:product_id", async (req, res) => {
   const { product_id } = req.params;
   const { product_name, price, stock_quantity } = req.body;
 
   try {
-    const result = await pool.query(
-      "UPDATE products SET product_name = $1, price = $2, stock_quantity = $3 WHERE product_id = $4 RETURNING *",
-      [product_name, price, stock_quantity, product_id]
+    const result = await pool.query("UPDATE products SET product_name = $1, price = $2, stock_quantity = $3 WHERE product_id = $4 RETURNING *",[product_name, price, stock_quantity, product_id]
     );
     res.json(result.rows[0]);
   } catch (error) {
@@ -59,7 +50,6 @@ productRouter.put("/updaterecord/:product_id", async (req, res) => {
   }
 });
 
-// Delete a specific product by product_id
 productRouter.delete("/deleterecord/:product_id", async (req, res) => {
   const { product_id } = req.params;
 

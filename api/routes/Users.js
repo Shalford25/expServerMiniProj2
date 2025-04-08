@@ -44,7 +44,6 @@ userRouter.post("/create", async (req, res) => {
   }
 });
 
-// Delete a specific user by ID
 userRouter.delete("/deleterecord:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -56,7 +55,6 @@ userRouter.delete("/deleterecord:id", async (req, res) => {
   }
 });
 
-// Check if the user is an admin
 userRouter.get("/isAdmin/:username", async (req, res) => {
   try {
     const { username } = req.params;

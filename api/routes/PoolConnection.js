@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000;
 //***************** Connection */
 pool
   .connect()
-  .then((client) => {
+    .then((client) => {
     console.log("Connected to Neon PostgreSQL database!");
     client.release();
   })
