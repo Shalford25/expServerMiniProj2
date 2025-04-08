@@ -56,4 +56,24 @@ userRouter.delete("/deleterecord:id", async (req, res) => {
   }
 });
 
+// Check if the user is an admin
+userRouter.get("/isAdmin/:username", async (req, res) => {
+  try {
+    const { username } = req.params;
+    const result = await pool.query(
+      "SELECT role_id FROM users WHERE username = $1",
+      [username]
+    );
+
+    if (result.rows.length > 0 && result.rows[0].role_id === 1) {
+      res.json({ isAdmin: true });
+    } else {
+      res.json({ isAdmin: false });
+    }
+  } catch (error) {
+    console.error("Error checking admin status:", error);
+    res.status(500).json({ error: "Failed to check admin status" });
+  }
+});
+
 export default userRouter;
