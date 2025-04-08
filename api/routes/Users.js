@@ -28,6 +28,7 @@ userRouter.get("/retrieverecord:id", async (req, res) => {
 
 // Create a new user
 userRouter.post("/create", async (req, res) => {
+  console.log("Request Body:", req.body); // Log the request body for debugging
   const { fname, lname, user_id, email, city, zcode, uname, password_hash, role } = req.body;
 
   try {
