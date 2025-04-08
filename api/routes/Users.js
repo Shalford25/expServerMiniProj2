@@ -33,7 +33,7 @@ userRouter.post("/create", async (req, res) => {
 
   try {
     const query = `
-      INSERT INTO users (first_name, last_name, user_id, email, city, zip_code, username, password_hash, role)
+      INSERT INTO users (first_name, last_name, user_id, email, city, zip_code, username, password_hash, role_id)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
     `;
     await pool.query(query, [fname, lname, user_id, email, city, zcode, uname, password_hash, role]);
